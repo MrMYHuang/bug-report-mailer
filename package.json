@@ -1,0 +1,22 @@
+{
+  "name": "bug-report-mailer",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "start": "node index.js",
+    "pack": "rm -f a.zip && zip -r a.zip dist node_modules package.json index.js"
+  },
+  "description": "",
+  "author": {
+    "name": "Meng-Yuan Haung"
+  },
+  "dependencies": {
+    "nodemailer": "^6.6.3"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.81",
+    "@types/nodemailer": "^6.4.4",
+    "typescript": "^4.3.4"
+  }
+}
