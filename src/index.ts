@@ -6,7 +6,7 @@ const senderPassword = '';
 const receivers = `???@gmail.com`;
 
 let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: 'smtp.gmail.com',
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
@@ -16,13 +16,21 @@ let transporter = nodemailer.createTransport({
 });
 
 exports.handler = async (event: awsLambda.APIGatewayProxyEventV2, context: any): Promise<awsLambda.APIGatewayProxyResultV2> => {
-    let response: awsLambda.APIGatewayProxyResult;
+    let response: awsLambda.APIGatewayProxyResult = {
+        statusCode: 200,
+        body: '{}',
+    };
+
+    if (event.requestContext.http.method.toUpperCase() === 'OPTIONS') {
+        return response;
+    }
+
     try {
         const path = event.requestContext.http.path;
         const data = JSON.parse(event.body!);
 
         await transporter.sendMail({
-            from: `bug-report-mailer`,
+            from: `${sender}`,
             to: receivers,
             subject: data.subject,
             text: data.text,
