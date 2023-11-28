@@ -1,9 +1,9 @@
 import awsLambda from 'aws-lambda';
 import nodemailer from 'nodemailer';
 
-const sender = '???@gmail.com';
+const sender = 'mr.myhuang@gmail.com';
 const senderPassword = '';
-const receivers = `???@gmail.com`;
+const receivers = `myh@live.com`;
 
 let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -36,15 +36,19 @@ exports.handler = async (event: awsLambda.APIGatewayProxyEventV2, context: any):
             text: data.text,
         });
 
+        const msg = 'Success!';
         response = {
             statusCode: 200,
-            body: JSON.stringify('Success!'),
+            body: JSON.stringify(msg),
         };
+        console.log(msg);
     } catch (err) {
+        const errMsg = JSON.stringify(`Error! ${err}\n${JSON.stringify(event)}`);
         response = {
             statusCode: 400,
-            body: JSON.stringify(`Error! ${err}\n${JSON.stringify(event)}`),
+            body: errMsg,
         };
+        console.error(errMsg);
     }
     return response;
 };
