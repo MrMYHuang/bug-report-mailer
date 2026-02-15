@@ -1,11 +1,11 @@
 {
   "name": "bug-report-mailer",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist && tsc",
     "start": "node index.js",
-    "pack": "rm -f a.zip && zip -r a.zip dist node_modules package.json index.js"
+    "deploy": "./scripts/deploy-lambda.sh"
   },
   "description": "",
   "author": {

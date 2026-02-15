@@ -1,8 +1,9 @@
 import awsLambda from 'aws-lambda';
 import nodemailer from 'nodemailer';
+import params from "../params.json";
 
 const sender = 'mr.myhuang@gmail.com';
-const senderPassword = '';
+const senderPassword = params.senderPassword;
 const receivers = `myh@live.com`;
 
 let transporter = nodemailer.createTransport({

@@ -1,3 +1,3 @@
-const index = require('./dist/index');
+const index = require('./dist/src/index');
 
 exports.handler = index.handler;
