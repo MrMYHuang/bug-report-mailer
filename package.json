@@ -5,7 +5,8 @@
   "scripts": {
     "build": "rm -rf dist && tsc",
     "start": "node index.js",
-    "deploy": "./scripts/deploy-lambda.sh"
+    "pack": "rm -f a.zip && zip -r a.zip package.json index.js dist node_modules",
+    "deploy": "npm run pack && ./scripts/deploy-lambda.sh"
   },
   "description": "",
   "author": {

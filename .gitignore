@@ -5,3 +5,7 @@ a.zip
 test.js
 params.json
 scripts/test.sh
+terraform/main.tf
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup

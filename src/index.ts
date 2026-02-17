@@ -22,12 +22,7 @@ exports.handler = async (event: awsLambda.APIGatewayProxyEventV2, context: any):
         body: '{}',
     };
 
-    if (event.requestContext.http.method.toUpperCase() === 'OPTIONS') {
-        return response;
-    }
-
     try {
-        const path = event.requestContext.http.path;
         const data = JSON.parse(event.body!);
 
         await transporter.sendMail({

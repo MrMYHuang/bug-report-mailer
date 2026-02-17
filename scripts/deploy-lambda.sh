@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-rm -f a.zip
-zip -r a.zip package.json index.js dist node_modules
 
-REGION="${AWS_REGION:-ap-northeast-1}"
+REGION="${AWS_REGION:-ap-east-2}"
 FUNCTION_NAME="${LAMBDA_FUNCTION_NAME:-bugReportMailer}"
 ZIP_PATH="${1:-a.zip}"
 
