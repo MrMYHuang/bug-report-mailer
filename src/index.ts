@@ -1,4 +1,3 @@
-import awsLambda from 'aws-lambda';
 import nodemailer from 'nodemailer';
 import params from "../params.json";
 
@@ -16,14 +15,14 @@ let transporter = nodemailer.createTransport({
     },
 });
 
-exports.handler = async (event: awsLambda.APIGatewayProxyEventV2, context: any): Promise<awsLambda.APIGatewayProxyResultV2> => {
-    let response: awsLambda.APIGatewayProxyResult = {
+exports.handler = async (event: any) => {
+    let response = {
         statusCode: 200,
-        body: '{}',
+        body: '',
     };
 
     try {
-        const data = JSON.parse(event.body!);
+        const data = (event) as any;
 
         await transporter.sendMail({
             from: `${sender}`,
