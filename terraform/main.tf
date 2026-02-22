@@ -1,3 +1,25 @@
+provider "aws" {
+  alias  = "acm_ap_east_1"
+  region = "ap-east-1"
+}
+
+resource "aws_acm_certificate" "myh_tw_wildcard" {
+  provider          = aws.acm_ap_east_1
+  domain_name       = "*.myh.tw"
+  validation_method = "DNS"
+  key_algorithm     = "RSA_2048"
+
+  options {
+    certificate_transparency_logging_preference = "ENABLED"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = var.tags
+}
+
 resource "aws_iam_role" "lambda_exec" {
   name = "${var.function_name}-exec-role"
 
@@ -196,4 +218,22 @@ resource "aws_api_gateway_stage" "bug_report_mailer_default" {
   rest_api_id   = aws_api_gateway_rest_api.bug_report_mailer_api.id
   deployment_id = aws_api_gateway_deployment.bug_report_mailer_deployment.id
   stage_name    = "default"
+}
+
+resource "aws_api_gateway_domain_name" "bug_report_mailer_custom_domain" {
+  domain_name              = var.api_custom_domain_name
+  regional_certificate_arn = aws_acm_certificate.myh_tw_wildcard.arn
+  security_policy          = "TLS_1_2"
+
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
+
+  tags = var.tags
+}
+
+resource "aws_api_gateway_base_path_mapping" "bug_report_mailer_custom_domain_mapping" {
+  api_id      = aws_api_gateway_rest_api.bug_report_mailer_api.id
+  stage_name  = aws_api_gateway_stage.bug_report_mailer_default.stage_name
+  domain_name = aws_api_gateway_domain_name.bug_report_mailer_custom_domain.domain_name
 }

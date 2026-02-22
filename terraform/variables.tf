@@ -20,3 +20,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "api_custom_domain_name" {
+  description = "API Gateway custom domain name"
+  type        = string
+  default     = "bug-report.mrmyh.eu.org"
+}
