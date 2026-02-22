@@ -1,10 +1,10 @@
 provider "aws" {
-  alias  = "acm_ap_east_1"
-  region = "ap-east-1"
+  alias  = "acm_ap_east_2"
+  region = "ap-east-2"
 }
 
 resource "aws_acm_certificate" "myh_tw_wildcard" {
-  provider          = aws.acm_ap_east_1
+  provider          = aws.acm_ap_east_2
   domain_name       = "*.myh.tw"
   validation_method = "DNS"
   key_algorithm     = "RSA_2048"
